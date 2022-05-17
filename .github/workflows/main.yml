@@ -1,8 +1,6 @@
 on:
-  push:
   schedule:
-    # Run every hour, on the hour. This can be customized to checking as frequently as every 5 minutes.
-    - cron:  '0 * * * *'
+    - cron:  '*/6 * * * *'
 
 name: Check for changes
 
