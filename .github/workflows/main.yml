@@ -11,7 +11,7 @@ jobs:
 
       # Use cURL to fetch the given URL, saving the response to `data.json`
       - name: Fetch data
-        run: curl "https://anime-facts-rest-api.herokuapp.com/api/v1" -o data.json
+        run: curl "https://raw.hellogithub.com/hosts" -o data.json
 
       # Optionally, use `jq` to pull one or more fields from the JSON to include in the SMS message
       - name: Parse data
@@ -26,9 +26,7 @@ jobs:
           path: data.json
           key: ${{ hashFiles('data.json') }}
       
-      # If there was not a cache hit (meaning the response changed), notify me via text message
-      # See https://github.com/twilio-labs/actions-sms for setup instructions
-      # You could use a different notification action here, so long as you include the `if` condition below
+
       - name: Notify if data has changed
         if: steps.cache.outputs.cache-hit != 'true'
-        run: curl "https://sctapi.ftqq.com/SCT91734THZBfRwhkRl5tdkxduyhRURxf.send?title=TAPD"
+        run: curl "https://sctapi.ftqq.com/SCT91734THZBfRwhkRl5tdkxduyhRURxf.send?title=githubIpChange"
