@@ -16,7 +16,9 @@ jobs:
       # Optionally, use `jq` to pull one or more fields from the JSON to include in the SMS message
       - name: Parse data
         id: parse_data
-        run: echo '::set-output name=someField::'$(jq -r '.someField' data.json)
+        # run: echo '::set-output name=someField::'$(jq -r '.someField' data.json)
+        run: echo '::set-output name=someField::'$(cat data.json)
+
           
       # Compare the response to the previous run, using a hash of the response as the cache key
       - name: Fetch Cache
@@ -29,4 +31,4 @@ jobs:
 
       - name: Notify if data has changed
         if: steps.cache.outputs.cache-hit != 'true'
-        run: curl "http://www.pushplus.plus/send?token=ff7273be19b84a01b99f47cedbfb8694&title=GithubIp Change"
+        run: curl "http://www.pushplus.plus/send?token=ff7273be19b84a01b99f47cedbfb8694&title=Github&&content=${{someField}}"
