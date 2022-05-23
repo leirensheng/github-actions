@@ -1,4 +1,5 @@
 on:
+  workflow_dispatch:
   schedule:
     - cron:  '*/6 * * * *'
 
@@ -31,4 +32,4 @@ jobs:
 
       - name: Notify if data has changed
         if: steps.cache.outputs.cache-hit != 'true'
-        run: curl "http://www.pushplus.plus/send?token=ff7273be19b84a01b99f47cedbfb8694&title=Github&&content=${{someField}}"
+        run: curl "http://www.pushplus.plus/send?token=ff7273be19b84a01b99f47cedbfb8694&title=Github&&content=ipChange"
