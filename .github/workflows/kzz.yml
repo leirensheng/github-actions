@@ -2,7 +2,7 @@ on:
   schedule:
     - cron:  '*/6 * * * *'
 
-name: Check for changes
+name: Check for KZZ
 
 jobs:
   check:
