@@ -7,7 +7,7 @@ jobs:
     name: Install Dependencies
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@Z
+    - uses: actions/checkout@v3
     - name: Install Dependencies
       uses: actions/setup-node@v2
       env:
@@ -19,4 +19,4 @@ jobs:
       env:
         CI: 'true'
       with:
-        args: node 1.js
+        args: npm test
