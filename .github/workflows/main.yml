@@ -12,7 +12,7 @@ jobs:
 
       # Use cURL to fetch the given URL, saving the response to `data.json`
       - name: Fetch data
-        run: curl "https://raw.hellogithub.com/hosts" -o data.json
+        run: curl "http://data.10jqka.com.cn/ipo/kzz" -o data.json
 
       # Optionally, use `jq` to pull one or more fields from the JSON to include in the SMS message
       - name: Parse data
