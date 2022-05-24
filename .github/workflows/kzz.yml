@@ -12,7 +12,7 @@ jobs:
 
       # Use cURL to fetch the given URL, saving the response to `data.json`
       - name: Fetch data
-        run: curl "http://data.10jqka.com.cn/ipo/kzz/" -o kzz.json
+        run: curl "http://data.10jqka.com.cn/ipo/kzz/" -o data.json
 
 
       # Compare the response to the previous run, using a hash of the response as the cache key
@@ -20,8 +20,8 @@ jobs:
         id: cache
         uses: actions/cache@v2
         with:
-          path: kzz.json
-          key: ${{ hashFiles('kzz.json') }}
+          path: data.json
+          key: ${{ hashFiles('data.json') }}
       
 
       - name: Notify if data has changed
