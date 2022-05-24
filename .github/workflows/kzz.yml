@@ -1,7 +1,7 @@
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '*/6 * * * *'
+    - cron:  '0 2 * * *'
 
 name: Check for KZZ
 
