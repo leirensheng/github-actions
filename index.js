@@ -1,6 +1,7 @@
 let puppeteer = require('puppeteer-core');
 
 (async ()=>{
+    let sleep = (time)=> new Promise(r=> setTimeout(r,time))
     browser = await puppeteer.launch({
         args: ['--no-sandbox'],
         executablePath: process.env.PUPPETEER_EXEC_PATH, // set by docker container
@@ -12,5 +13,10 @@ let puppeteer = require('puppeteer-core');
         waitUntil: 'networkidle2' // 网络空闲说明已加载完毕
       }); //打开百度贴吧
       await sleep(3000);
+
+      let res = await page.$eval('.rcmd_forum_list', (el)=>el.innerText)
+      console.log(res)
+
+      
       
 })()
