@@ -1,5 +1,5 @@
 let puppeteer = require("puppeteer-core");
-let start = require("./main")
+let start = require("./main.js")
 (async () => {
   browser = await puppeteer.launch({
     args: ["--no-sandbox"],
