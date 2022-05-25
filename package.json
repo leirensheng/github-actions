@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/leirensheng/github-actions#readme",
   "dependencies": {
+    "carlo": "^0.9.46",
+    "chalk": "^4.1.0",
     "puppeteer-core": "^14.1.1"
   }
 }

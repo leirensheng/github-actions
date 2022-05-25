@@ -1,22 +1,12 @@
-let puppeteer = require('puppeteer-core');
+let puppeteer = require("puppeteer-core");
+let start = require("main")
 
-(async ()=>{
-    let sleep = (time)=> new Promise(r=> setTimeout(r,time))
-    browser = await puppeteer.launch({
-        args: ['--no-sandbox'],
-        executablePath: process.env.PUPPETEER_EXEC_PATH, // set by docker container
-        headless: false,
-        
-      });
-      const page = await browser.newPage(); //打开一个空白页
-      await page.goto('https://tieba.baidu.com/index.html', {
-        waitUntil: 'networkidle2' // 网络空闲说明已加载完毕
-      }); //打开百度贴吧
-      await sleep(3000);
+browser = await puppeteer.launch({
+  args: ["--no-sandbox"],
+  executablePath: process.env.PUPPETEER_EXEC_PATH, // set by docker container
+  headless: false,
+});
+const page = await browser.newPage(); //打开一个空白页
 
-      let res = await page.$eval('.rcmd_forum_list', (el)=>el.innerText)
-      console.log(res)
-
-      
-      
-})()
+await start(page);
+await browser.close();
