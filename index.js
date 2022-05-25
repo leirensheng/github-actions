@@ -1,5 +1,6 @@
 let puppeteer = require("puppeteer-core");
-let start = require("./main.js")
+const path = require('path')
+let start = require(path.resolve(__dirname,"./main.js"))
 let init = async () => {
   browser = await puppeteer.launch({
     args: ["--no-sandbox"],
