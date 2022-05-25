@@ -1,4 +1,4 @@
-let puppeteer = require('puppeteer')
+let puppeteer = require('puppeteer-core')
 (async ()=>{
     browser = await puppeteer.launch({
         args: ['--no-sandbox'],
