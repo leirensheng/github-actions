@@ -1,6 +1,6 @@
 let puppeteer = require("puppeteer-core");
 let start = require("./main.js")
-(async () => {
+let init = async () => {
   browser = await puppeteer.launch({
     args: ["--no-sandbox"],
     executablePath: process.env.PUPPETEER_EXEC_PATH, // set by docker container
@@ -10,4 +10,7 @@ let start = require("./main.js")
 
   await start(page);
   await browser.close();
-})();
+}
+
+
+init()
