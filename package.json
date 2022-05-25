@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/leirensheng/github-actions/issues"
   },
-  "homepage": "https://github.com/leirensheng/github-actions#readme"
+  "homepage": "https://github.com/leirensheng/github-actions#readme",
+   "dependencies": {
+    "puppeteer-core": "^14.1.1"
+  }
 }
