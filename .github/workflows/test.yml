@@ -9,6 +9,4 @@ jobs:
     steps:
     - name: test
       run: |
-        content=123 && \
-        url=http://www.pushplus.plus/send?token=ff7273be19b84a01b99f47cedbfb8694&title=Bank&&content=$content && \
-        curl $url
+        content=123 && url=http://www.pushplus.plus/send?token=ff7273be19b84a01b99f47cedbfb8694&title=Bank&&content=$content && curl $url
