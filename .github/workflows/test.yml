@@ -1,0 +1,13 @@
+name: TEST
+on: 
+  workflow_dispatch:
+
+jobs:
+  installDependencies:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+    steps:
+    - name: test
+      run: |
+        content=123 && \
+        curl http://www.pushplus.plus/send?token=ff7273be19b84a01b99f47cedbfb8694&title=Bank&&content=$content
