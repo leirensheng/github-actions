@@ -10,4 +10,5 @@ jobs:
     - name: test
       run: |
         content=123 && \
-        curl http://www.pushplus.plus/send?token=ff7273be19b84a01b99f47cedbfb8694&title=Bank&&content=$content
+        url=http://www.pushplus.plus/send?token=ff7273be19b84a01b99f47cedbfb8694&title=Bank&&content=$content && \
+        curl $url
