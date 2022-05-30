@@ -16,9 +16,21 @@ jobs:
         args: install
     - name: Install Pupp
       run: npm i
-    - name: Test Code
+    - name: Goto page and save
       uses: mujo-code/puppeteer-headful@v2
       env:
         CI: 'true'
       with:
         args: npm test
+    - name: Fetch Cache
+      id: cache
+      uses: actions/cache@v2
+      with:
+        path: responseData
+        key: ${{ hashFiles('responseData') }}
+
+      - name: Notify if data has changed
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+        content=$(cat responseData) 
+        curl "http://www.pushplus.plus/send?token=ff7273be19b84a01b99f47cedbfb8694&title=Bank&&content=$content"

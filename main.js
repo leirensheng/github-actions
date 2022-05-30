@@ -8,15 +8,7 @@ let start = async (page) => {
   await sleep(3000);
 
   let res = await page.$eval(".Post-RichTextContainer", (el) => el.innerText);
-
-  let isFileExists = fs.existsSync("./responseData");
-  let preRes = !isFileExists ? "" : fs.readFileSync("./responseData", "utf-8");
-
-  if (preRes !== res) {
-    console.log("不一样");
-    fs.writeFileSync("./responseData", res);
-    console.log(res);
-  }
+  fs.writeFileSync("./responseData", res);
 };
 
 module.exports = start;
