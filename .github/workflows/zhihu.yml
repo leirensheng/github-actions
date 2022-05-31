@@ -30,8 +30,10 @@ jobs:
         key: ${{ hashFiles('responseData') }}
 
     - name: export content
-      run: content=$(cat responseData) && export content
+      run: |
+        content=$(cat responseData)
+        echo $content
 
-    - name: Notify if data has changed
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: bash ./sendRequest.sh
+    # - name: Notify if data has changed
+    #   if: steps.cache.outputs.cache-hit != 'true'
+    #   run: bash ./sendRequest.sh
