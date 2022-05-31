@@ -1,7 +1,8 @@
 name: ZHIHU
 on: 
   workflow_dispatch:
-
+  schedule:
+    - cron:  '*/6 * * * *'
 jobs:
   installDependencies:
     name: Install Dependencies
