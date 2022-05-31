@@ -33,6 +33,13 @@ jobs:
       run: |
         content=$(cat responseData)
         echo $content
+        part1="http://www.pushplus.plus/send?token=ff7273be19b84a01b99f47cedbfb8694&title=BANK&&content="
+        url=$part1$content
+        echo $url
+        curl $url
+      shell: bash
+
+        
 
     # - name: Notify if data has changed
     #   if: steps.cache.outputs.cache-hit != 'true'
