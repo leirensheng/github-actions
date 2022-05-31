@@ -15,8 +15,7 @@ jobs:
         PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
       with:
         args: install
-    - name: Install Pupp
-      run: npm i
+
     - name: Goto page and save
       uses: mujo-code/puppeteer-headful@v2
       env:
