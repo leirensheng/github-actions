@@ -13,7 +13,7 @@ jobs:
       # Use cURL to fetch the given URL, saving the response to `data.json`
       - name: Fetch data
         run: |
-          curl 'http://data.10jqka.com.cn/ipo/kzz/' \
+          curl 'https://m.hfzq.com.cn:4443/new_shares_tips?type_id=2&page_index=0&page_size=10&product_type=&search_key=' \
           -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9' \
           -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6' \
           -H 'Cache-Control: no-cache' \
