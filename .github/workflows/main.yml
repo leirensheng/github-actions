@@ -24,7 +24,7 @@ jobs:
       # Compare the response to the previous run, using a hash of the response as the cache key
       - name: Fetch Cache
         id: cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: data.json
           key: ${{ hashFiles('data.json') }}
