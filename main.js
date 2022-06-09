@@ -2,7 +2,7 @@ let fs = require("fs");
 let sleep = (time) => new Promise((r) => setTimeout(r, time));
 
 let start = async (page) => {
-  await page.goto("https://zhuanlan.zhihu.com/p/523837682", {
+  await page.goto("https://zhuanlan.zhihu.com/p/526137804", {
     waitUntil: "networkidle2", // 网络空闲说明已加载完毕
   });
   await sleep(3000);
