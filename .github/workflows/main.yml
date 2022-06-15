@@ -1,7 +1,5 @@
 on:
   workflow_dispatch:
-  schedule:
-    - cron:  '*/6 * * * *'
 
 name: Check for changes
 
