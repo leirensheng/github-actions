@@ -1,11 +1,16 @@
-let fs = require("fs");
-let axios  = require('axios')
-let content = fs.readFileSync("./responseData", "utf-8");
-let body = {
-  token: "ff7273be19b84a01b99f47cedbfb8694",
-  title: "BANK",
-  content: content,
-  template: "html",
-  channel: "wechat",
+const { WxPusher, Message } = require("wxpusher");
+let msg = process.argv[2];
+
+
+let sendMsg = async () => {
+  const message = new Message();
+  message.content = msg;
+  message.uids = ["UID_ZFqEpe7kmm27SJ466yXdnbeWyIgL"];
+  const result = await new WxPusher("AT_s8ql37DbRNkrItpYhUK60xNNTeNE3ekp").send(
+    message
+  );
+  console.log(result);
 };
-axios.post("https://www.pushplus.plus/api/send", body);
+
+
+sendMsg()

@@ -1,11 +1,11 @@
-name: ZHIHU
+name: updateWanIp
 on: 
   workflow_dispatch:
   schedule:
-    - cron:  '*/6 * * * *'
+    - cron:  '* 5 * * *'
 jobs:
-  zhihuArticleDetect:
-    name: zhihuArticleDetect
+  updateWanIp:
+    name: updateWanIp
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -33,15 +33,5 @@ jobs:
       env:
         CI: 'true'
       with:
-        args: npm test
+        args: npm run updateWanIp
         
-    - name: Fetch Cache
-      id: cache
-      uses: actions/cache@v3
-      with:
-        path: responseData
-        key: ${{ hashFiles('responseData') }}
-        
-    - name: Notify if data has changed
-      if: steps.cache.outputs.cache-hit != 'true'
-      run: node ./sendRequest.js
