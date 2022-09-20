@@ -19,11 +19,14 @@ let start = async (page) => {
   page.on("dialog", async (dialog) => {
     console.log(dialog.message());
     await dialog.accept();
+    console.log("点击弹窗确定了")
     // await browser.close();
   });
   await sleep(1000)
   await page.evaluate(() => {
     document.querySelector("#reboot").click();
   });
+  console.log("点击了重启")
+  await sleep(1000)
 };
 startBrowser(start);
