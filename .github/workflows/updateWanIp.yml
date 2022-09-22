@@ -1,6 +1,10 @@
 name: updateWanIp
 on: 
   workflow_dispatch:
+  repository_dispatch:
+    types:
+      - webhook-1
+
   schedule:
     - cron:  '18 18,19 * * *'
 jobs:
