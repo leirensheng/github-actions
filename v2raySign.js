@@ -38,6 +38,10 @@ let start = async (page, isLocal) => {
     );
     console.log("当前剩余流量:" + hasRemain);
 
+    let subscribeUrl = await page.$eval('.copy-text.btn-dl',(dom)=> dom.getAttribute('data-clipboard-text'))
+    console.log("订阅地址:" + subscribeUrl);
+
+
     let checkBtn = await page.evaluate(() => {
       let checkBtn = document.querySelector("#checkin");
       if (checkBtn) {
