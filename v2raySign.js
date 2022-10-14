@@ -11,10 +11,9 @@ let start = async (page, isLocal) => {
     } catch (e) {}
   };
 
-  let startOne = async (email) => {
+  let startOne = async (email,url) => {
     console.log("当前用户:", email);
-    let url = isLocal ? "https://go.runba.cyou/user" : "https://v2free.org";
-    page.goto(url);
+    page.goto(url+'/user');
     await page.waitForSelector("input[type=email]");
     let needLogin = await page.evaluate(() => location.href.includes("login"));
     if (needLogin) {
@@ -80,6 +79,13 @@ let start = async (page, isLocal) => {
     clearInterval(timer);
   };
 
+  let getSite = async () => {
+    await Promise.all([page.goto("https://v2-free.github.io/"), page.waitForNavigation()]);
+    return await page.evaluate(() => document.querySelector("p a").href);
+  };
+
+  let site = await getSite()
+  console.log('域名是:'+site)
   let emails = [
     "leirensheng@163.com",
     "hik@163.com",
@@ -87,7 +93,7 @@ let start = async (page, isLocal) => {
     "hik2@163.com",
   ];
   for (let one of emails) {
-    await startOne(one);
+    await startOne(one,site);
   }
 };
 startBrowser(start);
