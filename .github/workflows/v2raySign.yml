@@ -1,4 +1,4 @@
-name: updateWanIp
+name: v2raySign
 on: 
   workflow_dispatch:
   repository_dispatch:
@@ -8,8 +8,8 @@ on:
   schedule:
     - cron:  '18 19 * * *'
 jobs:
-  updateWanIp:
-    name: updateWanIp
+  v2raySign:
+    name: v2raySign
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -37,5 +37,5 @@ jobs:
       env:
         CI: 'true'
       with:
-        args: npm run updateWanIp
+        args: npm run v2raySign
         
