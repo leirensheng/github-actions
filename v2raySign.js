@@ -11,9 +11,9 @@ let start = async (page, isLocal) => {
     } catch (e) {}
   };
 
-  let startOne = async (email,url) => {
+  let startOne = async (email, url) => {
     console.log("当前用户:", email);
-    page.goto(url+'/user');
+    page.goto(url + "/user");
     await page.waitForSelector("input[type=email]");
     let needLogin = await page.evaluate(() => location.href.includes("login"));
     if (needLogin) {
@@ -33,14 +33,13 @@ let start = async (page, isLocal) => {
       myClick(".modal-dialog #result_ok");
     }, 2000);
 
-    let hasRemain = await page.evaluate(
-      () => document.querySelector("#remain").innerText
-    );
+    let hasRemain = await page.$eval("#remain", (dom) => dom.innerText);
     console.log("当前剩余流量:" + hasRemain);
 
-    let subscribeUrl = await page.$eval('.copy-text.btn-dl',(dom)=> dom.getAttribute('data-clipboard-text'))
+    let subscribeUrl = await page.$eval(".copy-text.btn-dl", (dom) =>
+      dom.getAttribute("data-clipboard-text")
+    );
     console.log("订阅地址:" + subscribeUrl);
-
 
     let checkBtn = await page.evaluate(() => {
       let checkBtn = document.querySelector("#checkin");
@@ -58,9 +57,7 @@ let start = async (page, isLocal) => {
       await page.waitForNavigation();
       await myClick(".modal-dialog #result_ok");
 
-      let curRemain = await page.evaluate(
-        () => document.querySelector("#remain").innerText
-      );
+      let curRemain = await page.$eval("#remain", (dom) => dom.innerText);
 
       if (hasRemain !== curRemain) {
         console.log("当前剩余流量:" + curRemain);
@@ -84,12 +81,15 @@ let start = async (page, isLocal) => {
   };
 
   let getSite = async () => {
-    await Promise.all([page.goto("https://v2-free.github.io/"), page.waitForNavigation()]);
-    return await page.evaluate(() => document.querySelector("p a").href);
+    await Promise.all([
+      page.goto("https://v2-free.github.io/"),
+      page.waitForNavigation(),
+    ]);
+    return await page.$eval("p a", (dom) => dom.href);
   };
 
-  let site = await getSite()
-  console.log('域名是:'+site)
+  let site = await getSite();
+  console.log("域名是:" + site);
   let emails = [
     "leirensheng@163.com",
     "hik@163.com",
@@ -97,7 +97,7 @@ let start = async (page, isLocal) => {
     "hik2@163.com",
   ];
   for (let one of emails) {
-    await startOne(one,site);
+    await startOne(one, site);
   }
 };
 startBrowser(start);
