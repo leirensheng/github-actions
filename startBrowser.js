@@ -22,8 +22,8 @@ let init = async (start) => {
   }
   browser = await puppeteer.launch(options);
   const page = await browser.newPage(); //打开一个空白页
-  await start(page)
+  await start(page, isLocal);
   await browser.close();
 };
 
-module.exports = init
+module.exports = init;

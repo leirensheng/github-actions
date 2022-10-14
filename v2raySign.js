@@ -1,7 +1,7 @@
 let startBrowser = require("./startBrowser");
 const { sleep } = require("./utils");
 
-let start = async (page) => {
+let start = async (page, isLocal) => {
   let myClick = async (selector) => {
     try {
       await page.waitForSelector(selector, { timeout: 2000 });
@@ -13,7 +13,8 @@ let start = async (page) => {
 
   let startOne = async (email) => {
     console.log("当前用户:", email);
-    page.goto("https://go.runba.cyou/user");
+    let url = isLocal ? "https://go.runba.cyou/user" : "https://v2free.org";
+    page.goto(url);
     await page.waitForSelector("input[type=email]");
     let needLogin = await page.evaluate(() => location.href.includes("login"));
     if (needLogin) {
