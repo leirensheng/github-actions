@@ -1,4 +1,5 @@
 let puppeteer = require("puppeteer-core");
+const { appendCode, sleep } = require("./utils");
 let isLocal = process.argv[2];
 let options;
 
@@ -22,7 +23,9 @@ let init = async (start) => {
   }
   browser = await puppeteer.launch(options);
   const page = await browser.newPage(); //打开一个空白页
-  await start(page, isLocal);
+  appendCode(page)
+  await sleep(100)
+  await start(page, isLocal, browser);
   await browser.close();
 };
 

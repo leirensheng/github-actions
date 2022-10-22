@@ -5,44 +5,47 @@ const path = require("path");
 function padLeftZero(str) {
   return ("00" + str).substr(str.length);
 }
-function getRandom(min,max) {
-  return Math.floor(Math.random()*(max-min)+min)
+function getRandom(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
 }
 module.exports = {
   getRandom,
-   sleep(time,max){
-    let realTime = time
-    if(max){
-      realTime = getRandom(time,max)
+  sleep(time, max) {
+    let realTime = time;
+    if (max) {
+      realTime = getRandom(time, max);
     }
-    return new Promise(resolve=>setTimeout(resolve, realTime))
+    return new Promise((resolve) => setTimeout(resolve, realTime));
   },
-//   async sendMsg(title, content) {
-//     let url =
-//       "https://sc.ftqq.com/SCU140452T9252cb72421645e17678387c06a491eb5fe9fa509e160.send?text=" +
-//       encodeURIComponent(title) +
-//       "&desp=" +
-//       encodeURIComponent(content);
-//     await request(url);
-//   },
+  //   async sendMsg(title, content) {
+  //     let url =
+  //       "https://sc.ftqq.com/SCU140452T9252cb72421645e17678387c06a491eb5fe9fa509e160.send?text=" +
+  //       encodeURIComponent(title) +
+  //       "&desp=" +
+  //       encodeURIComponent(content);
+  //     await request(url);
+  //   },
 
-  async saveCookies(page,user) {
+  async saveCookies(page, user) {
     const cookiesObject = await page.cookies();
-    fs.writeFileSync(path.resolve(__dirname,user+"Cookies.json"), JSON.stringify(cookiesObject,null,4));
+    fs.writeFileSync(
+      path.resolve(__dirname, user + "Cookies.json"),
+      JSON.stringify(cookiesObject, null, 4)
+    );
   },
 
-  async recoverCookies(page,user){
-    let cookiesFilePath =path.resolve(__dirname, user+"Cookies.json")
+  async recoverCookies(page, user) {
+    let cookiesFilePath = path.resolve(__dirname, user + "Cookies.json");
 
-    const previousSession = fs.existsSync(cookiesFilePath)
+    const previousSession = fs.existsSync(cookiesFilePath);
     if (previousSession) {
-      const cookiesArr = require(`${cookiesFilePath}`)
+      const cookiesArr = require(`${cookiesFilePath}`);
       if (cookiesArr.length !== 0) {
         for (let cookie of cookiesArr) {
-          await page.setCookie(cookie)
+          await page.setCookie(cookie);
         }
-        console.log('Session has been loaded in the browser')
-        return true
+        console.log("Session has been loaded in the browser");
+        return true;
       }
     }
   },
@@ -83,4 +86,27 @@ module.exports = {
     }
     return fmt;
   },
+
+  appendCode: (page) => {
+    let code = `;$$ =(val)=> [...document.querySelectorAll(val)];$=(val)=>document.querySelector(val);`
+    page.evaluateOnNewDocument(code);
+  },
+
+   autoScroll: async(page)=> {
+    return page.evaluate(() => {
+      return new Promise((resolve, reject) => {
+        let totalHeight = 0;
+        let distance = 100;
+        let timer = setInterval(() => {
+          let scrollHeight = document.body.scrollHeight;
+          window.scrollBy(0, distance);
+          totalHeight += distance;
+          if (totalHeight >= scrollHeight) {
+            clearInterval(timer);
+            resolve();
+          }
+        }, 100);
+      })
+    });
+  }
 };
