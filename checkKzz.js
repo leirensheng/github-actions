@@ -20,7 +20,17 @@ let start = async (page, isLocal) => {
     "table tbody tr:nth-child(2) td:nth-child(8)",
     (dom) => dom.innerText
   );
-  console.log("第一个发行时间: " + firstRowName);
+
+  let name1 = await page.$eval(
+    "table tbody tr:nth-child(2) td:nth-child(4)",
+    (dom) => dom.innerText
+  );
+  let name2 = await page.$eval(
+    "table tbody tr:nth-child(2) td:nth-child(6)",
+    (dom) => dom.innerText
+  );
+  
+  console.log("第一个发行时间: " + firstRowName, name1, name2);
 
   let date = getDate();
   let year = date.getFullYear();
