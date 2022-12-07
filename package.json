@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node index.js",
     "updateWanIp": "node updateWanIp.js",
-    "v2raySign":"node v2raySign"
+    "v2raySign":"node v2raySign",
+    "checkKzz":"node checkKzz"
   },
   "repository": {
     "type": "git",
