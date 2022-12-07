@@ -1,4 +1,4 @@
-name: v2raySign
+name: 新可转债
 on: 
   workflow_dispatch:
   repository_dispatch:
