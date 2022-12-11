@@ -2,21 +2,27 @@
 const fs = require("fs");
 const path = require("path");
 
+const qrcode = require('qrcode-terminal');
+
+
 function padLeftZero(str) {
   return ("00" + str).substr(str.length);
 }
 function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
+let sleep = (time, max)=> {
+  let realTime = time;
+  if (max) {
+    realTime = getRandom(time, max);
+  }
+  return new Promise((resolve) => setTimeout(resolve, realTime));
+}
+
+let getQrCode = (url)=>qrcode.generate(url,{small:true})
 module.exports = {
   getRandom,
-  sleep(time, max) {
-    let realTime = time;
-    if (max) {
-      realTime = getRandom(time, max);
-    }
-    return new Promise((resolve) => setTimeout(resolve, realTime));
-  },
+  sleep,
   //   async sendMsg(title, content) {
   //     let url =
   //       "https://sc.ftqq.com/SCU140452T9252cb72421645e17678387c06a491eb5fe9fa509e160.send?text=" +
@@ -90,8 +96,11 @@ module.exports = {
   appendCode: (page) => {
     let code = `;$$ =(val)=> [...document.querySelectorAll(val)];$=(val)=>document.querySelector(val);`
     page.evaluateOnNewDocument(code);
+    page.exposeFunction('getQrCode',getQrCode)
+    page.exposeFunction('sleep',sleep)
   },
-
+   
+  getQrCode,
    autoScroll: async(page)=> {
     return page.evaluate(() => {
       return new Promise((resolve, reject) => {

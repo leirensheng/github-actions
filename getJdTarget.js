@@ -1,15 +1,15 @@
 let startBrowser = require("./startBrowser");
-const { sleep, autoScroll } = require("./utils");
+const { sleep, autoScroll,getQrCode } = require("./utils");
 
 let keyword = "惠寻 口罩 无菌 医用";
 // let keyword = "纸巾";
 
 let mustHasName = "口罩";
-let startPrice = 10;
-let endPrice = 18;
+let startPrice = 5;
+let endPrice = 25;
 let isJdZiying = false;
 let isJdExpress = false;
-let isNoExpressFee = false;
+let isNoExpressFee = true;
 
 let start = async (page, isLocal, browser) => {
   // page.on("console", (msg) => console.log("PAGE LOG:", msg.text()));
@@ -93,6 +93,8 @@ let start = async (page, isLocal, browser) => {
           isZiying: !!one.querySelector("[data-tips=京东自营，品质保障]"),
           isFree: !!one.querySelector("[data-tips=当前收货地址，本商品免邮费]"),
         };
+      }).filter(one=>{
+        return  one.comment.includes('+')
       });
     },
 
@@ -102,7 +104,10 @@ let start = async (page, isLocal, browser) => {
   );
   items.sort((a, b) => a.adv - b.adv);
 
-  console.log("res", items);
+  items.forEach(one=>{
+    console.log(one)
+    getQrCode(`https://item.jd.com/${one.sku}.html`)
+  })
   await sleep(1000000);
 
   // console.log(freeItems[0].querySelector)

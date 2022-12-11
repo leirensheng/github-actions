@@ -6,7 +6,7 @@
   "scripts": {
     "test": "node index.js",
     "updateWanIp": "node updateWanIp.js",
-    "v2raySign":"node v2raySign"
+    "v2raySign": "node v2raySign"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "carlo": "^0.9.46",
     "chalk": "^4.1.0",
     "puppeteer-core": "^14.1.1",
+    "qrcode-terminal": "^0.12.0",
     "wxpusher": "^2.0.0"
   }
 }
