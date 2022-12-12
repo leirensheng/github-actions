@@ -3,9 +3,9 @@ const { sleep, sendMsg } = require("./utils");
 
 let start = async (page, isLocal) => {
   let getDate = () => {
-    var timezone = 8; 
-    var offset_GMT = new Date().getTimezoneOffset(); 
-    var nowDate = new Date().getTime(); 
+    var timezone = 8;
+    var offset_GMT = new Date().getTimezoneOffset();
+    var nowDate = new Date().getTime();
     var targetDate = new Date(
       nowDate + offset_GMT * 60 * 1000 + timezone * 60 * 60 * 1000
     );
@@ -16,22 +16,6 @@ let start = async (page, isLocal) => {
     page.waitForNavigation(),
   ]);
 
-  let firstRowName = await page.$eval(
-    "table tbody tr:nth-child(2) td:nth-child(8)",
-    (dom) => dom.innerText
-  );
-
-  let name1 = await page.$eval(
-    "table tbody tr:nth-child(2) td:nth-child(4)",
-    (dom) => dom.innerText
-  );
-  let name2 = await page.$eval(
-    "table tbody tr:nth-child(2) td:nth-child(6)",
-    (dom) => dom.innerText
-  );
-  
-  console.log("第一个发行时间: " + firstRowName, name1, name2);
-
   let date = getDate();
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
@@ -39,8 +23,29 @@ let start = async (page, isLocal) => {
   let handleNumber = (val) => (val > 9 ? val : "0" + val);
   let cur = `${year}-${handleNumber(month)}-${handleNumber(day)}`;
   console.log("当前时间:" + cur);
-  if (firstRowName === cur) {
-    sendMsg("今天有可转债: " + cur);
+
+  let res = await page.evaluate((cur) => {
+    let rows = [
+      ...document.querySelectorAll("table tbody tr:not(:first-child)"),
+    ];
+
+    let target = rows.find((one) => {
+      let date = one.querySelector("td:nth-child(8)").innerText;
+      return date === cur;
+    });
+    if (target) {
+      return {
+        name: target.querySelector("td:nth-child(4)"),
+      };
+    }
+    return null;
+  }, cur);
+
+
+  if (res) {
+    let msg = `今天【${cur}】有可转债: `  + res.name
+    console.log(msg)
+    sendMsg(msg);
   }
 };
 startBrowser(start);
