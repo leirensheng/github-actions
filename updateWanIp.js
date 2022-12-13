@@ -31,7 +31,10 @@ let start = async (page) => {
       console.log("点击了登录");
       await page.waitForNavigation();
     }
-    await page.waitForSelector("#statusWanIP")
+    await page.waitForFunction(()=>{
+        let dom = document.querySelector("#statusWanIP")
+        return dom && dom.innerText
+    })
     let curIp = await page.$eval("#statusWanIP", (dom) => dom.innerText);
     console.log("当前的IP: " + curIp);
 
@@ -55,7 +58,9 @@ let start = async (page) => {
     console.log("点击弹窗确定了");
     // await browser.close();
   });
+  await sleep(2 * 60000);
 
+  return
   await myClick("#reboot");
   console.log("点击了重启, 等待2分钟");
   await sleep(2 * 60000);
