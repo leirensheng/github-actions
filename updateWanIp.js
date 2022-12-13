@@ -31,6 +31,7 @@ let start = async (page) => {
       console.log("点击了登录");
       await page.waitForNavigation();
     }
+    await page.waitForSelector("#statusWanIP")
     let curIp = await page.$eval("#statusWanIP", (dom) => dom.innerText);
     console.log("当前的IP: " + curIp);
 
