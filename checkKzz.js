@@ -35,7 +35,7 @@ let start = async (page, isLocal) => {
     });
     if (target) {
       return {
-        name: target.querySelector("td:nth-child(4)"),
+        name: target.querySelector("td:nth-child(4)").innerText,
       };
     }
     return null;

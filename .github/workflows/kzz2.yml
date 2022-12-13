@@ -8,8 +8,8 @@ on:
   schedule:
     - cron:  '18 19 * * *'
 jobs:
-  v2raySign:
-    name: v2raySign
+  getInfo:
+    name: getInfo
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
