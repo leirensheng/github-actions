@@ -58,9 +58,6 @@ let start = async (page) => {
     console.log("点击弹窗确定了");
     // await browser.close();
   });
-  await sleep(2 * 60000);
-
-  return
   await myClick("#reboot");
   console.log("点击了重启, 等待2分钟");
   await sleep(2 * 60000);
