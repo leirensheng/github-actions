@@ -2,6 +2,7 @@ let startBrowser = require("./startBrowser");
 const { sleep } = require("./utils");
 
 let start = async (page) => {
+
   let waitForWebsite = async (times = 999) => {
     let isSuccess;
     let useTimes = 0;
@@ -17,7 +18,6 @@ let start = async (page) => {
       useTimes++;
     }
   };
-
   let loginAndGetIp = async () => {
     await sleep(1000);
     let needLogin = await page.evaluate(() => location.href.includes("login"));
@@ -58,9 +58,11 @@ let start = async (page) => {
     console.log("点击弹窗确定了");
     // await browser.close();
   });
+  await sleep(1000)
   await myClick("#reboot");
-  console.log("点击了重启, 等待2分钟");
-  await sleep(2 * 60000);
+  console.log("点击了重启, 等待30s");
+
+  await sleep(30000)
 
   await waitForWebsite();
 
