@@ -20,8 +20,35 @@ let sleep = (time, max)=> {
 }
 
 let getQrCode = (url)=>qrcode.generate(url,{small:true})
+
+
+let formatNumber = (val) => (val < 10 ? "0" + val : val);
+
+let getChinaDate = () => {
+  var timezone = 8;
+  var offset_GMT = new Date().getTimezoneOffset();
+  var nowDate = new Date().getTime();
+  var targetDate = new Date(
+    nowDate + offset_GMT * 60 * 1000 + timezone * 60 * 60 * 1000
+  );
+  return targetDate;
+};
+let getTime = (date) => {
+  if (!date) {
+    date = getChinaDate();
+  }
+  let hour = date.getHours();
+  let minute = date.getMinutes();
+  let second = date.getSeconds();
+  let millisecond = date.getMilliseconds();
+
+  return `${formatNumber(hour)}:${formatNumber(minute)}:${formatNumber(
+    second
+  )}.${millisecond}`;
+};
 module.exports = {
   getRandom,
+  getTime,
   sleep,
   //   async sendMsg(title, content) {
   //     let url =

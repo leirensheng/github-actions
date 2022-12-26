@@ -1,5 +1,5 @@
 let startBrowser = require("./startBrowser");
-const { sleep } = require("./utils");
+const { sleep,getTime } = require("./utils");
 
 let start = async (page) => {
 
@@ -36,7 +36,7 @@ let start = async (page) => {
         return dom && dom.innerText
     })
     let curIp = await page.$eval("#statusWanIP", (dom) => dom.innerText);
-    console.log("当前的IP: " + curIp);
+    console.log(getTime()+ "当前的IP: " + curIp);
 
     return curIp;
   };
@@ -50,17 +50,17 @@ let start = async (page) => {
   let preIp = await loginAndGetIp();
 
   await myClick("#system");
-  console.log("点击了系统菜单");
+  console.log("点击了系统菜单",getTime(),getTime());
 
   page.on("dialog", async (dialog) => {
     console.log(dialog.message());
     await dialog.accept();
-    console.log("点击弹窗确定了");
+    console.log("点击弹窗确定了",getTime());
     // await browser.close();
   });
   await sleep(1000)
   await myClick("#reboot");
-  console.log("点击了重启, 等待30s");
+  console.log("点击了重启, 等待30s",getTime());
 
   await sleep(30000)
 
