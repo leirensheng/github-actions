@@ -52,14 +52,20 @@ let start = async (page) => {
   await myClick("#system");
   console.log("点击了系统菜单",getTime(),getTime());
 
+  let noLoop = false
   page.on("dialog", async (dialog) => {
     console.log(dialog.message());
     await dialog.accept();
     console.log("点击弹窗确定了",getTime());
-    // await browser.close();
+    noLoop = true
   });
   await sleep(1000)
-  await myClick("#reboot");
+
+  while(!noLoop){
+    await myClick("#reboot");
+    await sleep(1000)
+  }
+  
   console.log("点击了重启, 等待30s",getTime());
 
   await sleep(30000)
