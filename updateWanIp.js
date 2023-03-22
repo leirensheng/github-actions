@@ -24,6 +24,8 @@ let start = async (page) => {
     if (needLogin) {
       console.log("需要登录");
       await sleep(1000);
+      await page.waitForSelector("input[type=password]")
+      
       await page.evaluate(() => {
         document.querySelector("input[type=password]").value = "07505461203";
         document.querySelector("#save").click();
