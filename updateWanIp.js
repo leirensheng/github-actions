@@ -73,10 +73,5 @@ let start = async (page) => {
   await sleep(30000)
 
   await waitForWebsite();
-
-  let ip = await loginAndGetIp();
-  if (ip !== preIp) {
-    console.log("成功了！！！");
-  }
 };
 startBrowser(start);
