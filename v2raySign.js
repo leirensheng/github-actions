@@ -19,6 +19,8 @@ let start = async (page, isLocal) => {
     if (needLogin) {
       console.log("需要登录");
       await sleep(1000);
+      await page.waitForSelector("button[type=submit]");
+
       await page.evaluate((email) => {
         document.querySelector("input[type=email]").value = email;
         document.querySelector("input[type=password]").value = "hik12345+";

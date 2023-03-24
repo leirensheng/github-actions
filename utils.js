@@ -2,8 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const qrcode = require('qrcode-terminal');
-
+const qrcode = require("qrcode-terminal");
 
 function padLeftZero(str) {
   return ("00" + str).substr(str.length);
@@ -11,16 +10,15 @@ function padLeftZero(str) {
 function getRandom(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
-let sleep = (time, max)=> {
+let sleep = (time, max) => {
   let realTime = time;
   if (max) {
     realTime = getRandom(time, max);
   }
   return new Promise((resolve) => setTimeout(resolve, realTime));
-}
+};
 
-let getQrCode = (url)=>qrcode.generate(url,{small:true})
-
+let getQrCode = (url) => qrcode.generate(url, { small: true });
 
 let formatNumber = (val) => (val < 10 ? "0" + val : val);
 
@@ -121,14 +119,14 @@ module.exports = {
   },
 
   appendCode: (page) => {
-    let code = `;$$ =(val)=> [...document.querySelectorAll(val)];$=(val)=>document.querySelector(val);`
+    let code = `;$$ =(val)=> [...document.querySelectorAll(val)];$=(val)=>document.querySelector(val);`;
     page.evaluateOnNewDocument(code);
-    page.exposeFunction('getQrCode',getQrCode)
-    page.exposeFunction('sleep',sleep)
+    page.exposeFunction("getQrCode", getQrCode);
+    page.exposeFunction("sleep", sleep);
   },
-   
+
   getQrCode,
-   autoScroll: async(page)=> {
+  autoScroll: async (page) => {
     return page.evaluate(() => {
       return new Promise((resolve, reject) => {
         let totalHeight = 0;
@@ -142,19 +140,24 @@ module.exports = {
             resolve();
           }
         }, 100);
-      })
+      });
     });
   },
 
-  sendMsg: async (msg)=>{
+  sendMsg: async (msg) => {
     const { WxPusher, Message } = require("wxpusher");
 
     const message = new Message();
     message.content = msg;
     message.uids = ["UID_ZFqEpe7kmm27SJ466yXdnbeWyIgL"];
-    const result = await new WxPusher("AT_s8ql37DbRNkrItpYhUK60xNNTeNE3ekp").send(
-      message
-    );
+    const result = await new WxPusher(
+      "AT_s8ql37DbRNkrItpYhUK60xNNTeNE3ekp"
+    ).send(message);
     console.log(result);
-  }
+  },
+
+  async myClick(page, selector, timeout = 6000) {
+    await page.waitForSelector(selector, { timeout });
+    await page.$eval(selector, (dom) => dom.click());
+  },
 };
