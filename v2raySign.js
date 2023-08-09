@@ -35,7 +35,7 @@ let start = async (page, isLocal) => {
       myClick(".modal-dialog #result_ok");
     }, 2000);
 
-    let hasRemain = await page.$eval("#remain", (dom) => dom.innerText);
+    let hasRemain = await page.$eval(".user-info-main li a", (dom) => dom.innerText);
     console.log("当前剩余流量:" + hasRemain);
 
     let subscribeUrl = await page.$eval(".copy-text.btn-dl", (dom) =>
@@ -59,7 +59,7 @@ let start = async (page, isLocal) => {
       await page.waitForNavigation();
       await myClick(".modal-dialog #result_ok");
 
-      let curRemain = await page.$eval("#remain", (dom) => dom.innerText);
+      let curRemain = await page.$eval(".user-info-main li a", (dom) => dom.innerText);
 
       if (hasRemain !== curRemain) {
         console.log("当前剩余流量:" + curRemain);
